@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Polls アプリケーション</title>
+    </head>
+    <body>
+        <h1>{{ example.name }}さん、ご注文ありがとうございます。</h1>
+        <h1>注文：{{ example.item }}</h1>
+        <h1>価格：{{ example.price }}円</h1>
+        <br>
+        <h1>⬇️{{ example.name }}さんの選択項目</h1>
+        {% for choice in choices_list %}
+            <h2>・{{ choice.choice_text }}</h2>
+        {% endfor %}
+    </body>
+</html>

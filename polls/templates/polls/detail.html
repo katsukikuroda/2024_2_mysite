@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Polls アプリケーション</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'polls/css/index.css' %}" />
+    </head>
+    <body>
+        <form action="{% url 'polls:vote' question.id %}" method="POST">  {# URL polls:vote に、question の id と form での処理（POST）を渡す #}
+            {% csrf_token %}  {# CSRF 対策（後に説明します）#}
+            <div class="cp_ipradio">
+                <h1>{{ question.question_text }}</h1>
+        
+                {% if error_message %}  {# もしエラーがあれば #}
+                    <p><strong>{{ error_message }}</strong></p>  {# エラーを表示する #}
+                {% endif %}
+        
+                {% for choice in question.choice_set.all %}  {# question の choice の数だけループする #}
+                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">  {# ラジオボタン #}
+                    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+                {% endfor %}
+            </div>
+            <input type="submit" value="Vote" class="btn-flat-border">
+        </form>
+        <br>
+        <form action="{% url 'polls:resets' question.id %}" method="POST">
+            {% csrf_token %}
+            <div>
+                {% for choice in question.choice_set.all %}
+                    <input type="checkbox" name="resets" id="resets{{ forloop.counter }}" value="{{ choice.id }}">
+                    <label for="resets{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+                {% endfor %}
+            </div>
+            <input type="submit" value="Resets">
+        </form>
+        <br>
+        <a href="{% url 'polls:index' %}">他の質問に投票する</a>
+        <br>
+        <a href="{% url 'forum:index' %}">掲示板アプリに移動する</a>
+    </body>
+</html>

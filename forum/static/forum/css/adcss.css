@@ -1,0 +1,57 @@
+body {
+    width: 70%;
+    margin: 5rem auto;
+}
+
+h1 ~ p {
+    color: red;
+    text-align: center;
+}
+
+a {
+    color: white;
+}
+a:link {
+    background-color: green;
+}
+a:visited {
+    background-color: blue;
+}
+a:hover:nth-of-type(even) {
+    background-color: red;
+}
+a:active {
+    background-color: purple;
+}
+a::before {
+    content: "♥";
+}
+a::after {
+    content: "★";
+}
+
+.card {
+    border: 1px solid black;
+    margin-top: 20px;
+}
+.card:nth-last-of-type(1) {
+    margin-bottom: 20px;
+}
+.card-img-top {
+    width: 100%;
+}
+.card-body {
+    text-align: center;
+}
+.card-body h4 {
+    font-family: "Hannotate SC";
+}
+.container {
+    display: flex; /*フレックスコンテナを設定、インライン要素・ブロックレベル要素に関わらず配置を制御*/
+    flex-direction: row; /*フレックスアイテムを水平方向に左から右へ配置*/
+    flex-wrap: wrap; /*フレックスアイテムを折り返して表示*/
+    justify-content: space-around; /*フレックスアイテムの前後に均等なスペースを追加*/
+    border: solid 6px #abcf3e;
+    margin-top: 40px;
+}
+

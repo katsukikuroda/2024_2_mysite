@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Forum アプリケーション</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'forum/css/adcss.css' %}" />
+    </head>
+    <body>
+        <main>
+            <div class="container">
+                {% for num in range %}
+                    <div class="card" style="width: 18rem">
+                        <img src={{ num.img }} class="card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title">{{ num.title }}</h4>
+                            <p class="card-text">{{ num.text|safe }}</p>
+                            <a href="#" class="btn">トップへ戻る</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="https://example.com">リンク1</a>
+            <a href="https://example.com">リンク2</a>
+            <a href="https://example.com">リンク3</a>
+            <a href="https://example.com">リンク4</a>
+            <a href="https://example.com">リンク5</a>
+            <a href="https://example.com">リンク6</a>
+            <a href="https://example.com">リンク7</a>
+            <a href="https://example.com">リンク8</a>
+            <a href="https://example.com">リンク9</a>
+            <a href="https://example.com">リンク10</a>
+            <h1>A</h1>
+            <p>B</p>
+            <div>
+                <p>C</p>
+            </div>
+            <p>D</p>
+        </main>
+        <p>E</p>
+    </body>
+</html>

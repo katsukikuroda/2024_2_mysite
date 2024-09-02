@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <title>Polls アプリケーション</title>
+    </head>
+    <body>
+        <h1>{{ question.question_text }}</h1>
+        <ul>
+        {% for choice in question.choice_set.all %}
+            <li>{{ choice.choice_text }}：{{ choice.votes }} 票</li>
+        {% endfor %}
+        </ul>        
+        <a href="{% url 'polls:detail' question.id %}">もう一度投票する</a>
+        <br>
+        <a href="{% url 'polls:index' %}">他の質問に投票する</a>
+        <br>
+        <a href="{% url 'forum:index' %}">掲示板アプリに移動する</a>
+    </body>
+</html>
