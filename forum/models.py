@@ -11,6 +11,7 @@ class Message(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name="topic_message")
     content = models.CharField("内容", max_length=200)
     created_at = models.DateTimeField("投稿日時", auto_now_add=True)
+    # ↓15で追加…のはずがgithubのファイルには既にあった
     image = models.ImageField("画像", null=True, blank=True) # 追加
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="user_message") # 追加
 

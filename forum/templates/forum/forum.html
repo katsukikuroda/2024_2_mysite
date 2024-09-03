@@ -16,6 +16,13 @@
             <tr>
                 <th>{{ message.content }}</th>
                 <th>{{ message.created_at }}</th>
+                {# ↓15で以下を追加 #}
+                {% if message.image %}
+                <th>
+                    <img src="{{ message.image.url }}" >
+                </th>
+                {% endif %}
+                {#↑ ここまで #}
                 {% for tag in message.tag.all %}
                     <th>{{ tag.name }}</th>
                 {% endfor %}
@@ -36,9 +43,15 @@
         </form>
         {% endfor %}
     </table>
-    <form action="{% url 'forum:forum' topic.name %}" method="POST" class="message_form">
+        <!-- <form action="{% url 'forum:forum' topic.name %}" method="POST" class="message_form">
+            {% csrf_token %}
+            {{ message_form.as_table }}
+            <button type="submit" name="message" value="value">送信</button>
+        </form>  -->
+    {# 15で上のform要素を変更 ※class名が違う #}
+    <form class="message-form" action="{% url 'forum:forum' topic.name %}" method="POST" enctype="multipart/form-data"> {# enctype を message フォームに設定 #}
         {% csrf_token %}
-        {{ message_form.as_table }}
+        {{ message_form }}
         <button type="submit" name="message" value="value">送信</button>
     </form>
     <a href="{% url 'forum:index' %}">ホームへ</a>

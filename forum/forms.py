@@ -20,4 +20,6 @@ class MessageForm(forms.ModelForm):
         model = Message
         fields = [
             "content",
+            # 15で追加
+            "image",
         ]
