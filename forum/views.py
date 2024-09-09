@@ -28,6 +28,8 @@ class IndexView(ListView):
 
 class ForumView(ListView):
     template_name = "forum/forum.html"
+    #16で追加⇩
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -37,6 +39,9 @@ class ForumView(ListView):
 
         context["message_form"] = MessageForm()
         context["comment_form"] = CommentForm()
+        #16で下の1行を追加  
+        context["tag"] = self.request.GET.get("tag")
+
 
         return context
 
@@ -54,6 +59,12 @@ class ForumView(ListView):
             .prefetch_related("tag", "comment")
             .order_by("created_at")
         )
+
+        # 16で↓の2行を追加 get_querysetがもう１つあるので注意！！
+        if self.request.GET.get("tag"):
+            queryset = queryset.filter(tag__name=self.request.GET.get("tag"))
+
+
         return queryset
 
     def post(self, request, *args, **kwargs):

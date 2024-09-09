@@ -24,7 +24,9 @@
                 {% endif %}
                 {#↑ ここまで #}
                 {% for tag in message.tag.all %}
-                    <th>{{ tag.name }}</th>
+                    {# <th>{{ tag.name }}</th> #}
+                    {# 16で↑を↓に変更 #}
+                    <th><a href="{% url 'forum:forum' topic.name %}?tag={{tag.name}}">{{ tag.name }}</a></th>
                 {% endfor %}
             </tr>
             <th>コメント数 : {{ message.reply_num }}</th>
@@ -55,5 +57,22 @@
         <button type="submit" name="message" value="value">送信</button>
     </form>
     <a href="{% url 'forum:index' %}">ホームへ</a>
+    {# 16で以下のdivを追加 #}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="{% url 'forum:forum' topic.name %}?{% if tag %}tag={{ tag }}&{% endif %}page=1">&laquo; 先頭へ</a>
+            <a href="{% url 'forum:forum' topic.name %}?{% if tag %}tag={{ tag }}&{% endif %}page={{ page_obj.previous_page_number }}">前へ</a>
+            {% endif %}
+
+            <span class="current">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+            <a href="{% url 'forum:forum' topic.name %}?{% if tag %}tag={{ tag }}&{% endif %}page={{ page_obj.next_page_number }}">次へ</a>
+            <a href="{% url 'forum:forum' topic.name %}?{% if tag %}tag={{ tag }}&{% endif %}page={{ page_obj.paginator.num_pages }}">最後へ &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
 </body>
 </html>
