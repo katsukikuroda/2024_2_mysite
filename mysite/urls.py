@@ -19,14 +19,22 @@ from django.urls import path, include
 from django.conf import settings
 # 15で追加
 from django.conf.urls.static import static
-
+# 17で追加
+from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("polls/", include("polls.urls")),
-    path("forum/", include("forum.urls")),
+    # path("forum/", include("forum.urls")),
     path('accounts/', include('allauth.urls')), # 追加
 ]
+
+# 17で追加
+urlpatterns += i18n_patterns(
+    path("forum/", include("forum.urls")),
+    path("", include("forum.urls")),
+)
+#↑ここまで
 
 if settings.DEBUG:
     urlpatterns += [path("__debug__/", include("debug_toolbar.urls"))]

@@ -23,3 +23,13 @@ class MessageForm(forms.ModelForm):
             # 15で追加
             "image",
         ]
+
+# 17で追加
+class MessageSearchForm(forms.Form):
+
+    keyword = forms.CharField(
+        label="検索",
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": "メッセージで検索"}),
+    )
+

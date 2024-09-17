@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "django.middleware.locale.LocaleMiddleware",  # 17で追加
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -123,6 +124,16 @@ LANGUAGE_CODE = 'ja'
 TIME_ZONE = 'Asia/Tokyo'
 
 USE_I18N = True
+
+#17で追加
+LOCALE_PATHS = [
+    BASE_DIR / "locale",
+]
+LANGUAGES = [
+    ("en", "English"),
+    ("ja", "Japanese"),
+]
+#↑ここまで
 
 USE_TZ = True
 

@@ -1,6 +1,9 @@
 from django.shortcuts import redirect, render
 from .models import Topic, Message, Comment
-from .forms import CommentForm, MessageForm
+from .forms import (CommentForm, MessageForm,
+                    #17で追加↓
+                    MessageSearchForm,
+                    )
 from django.db.models import Count, Max, OuterRef, Subquery
 from django.db.models.functions import Greatest, Coalesce
 from django.views.generic.list import ListView
@@ -42,6 +45,14 @@ class ForumView(ListView):
         #16で下の1行を追加  
         context["tag"] = self.request.GET.get("tag")
 
+        #17で下を追加
+        form = MessageSearchForm(self.request.GET)
+        if form.is_valid():
+            context["keyword"] = form.cleaned_data["keyword"]
+
+        context["search_form"] = form
+        #↑ここまで
+
 
         return context
 
@@ -64,8 +75,16 @@ class ForumView(ListView):
         if self.request.GET.get("tag"):
             queryset = queryset.filter(tag__name=self.request.GET.get("tag"))
 
+        #17で下を追加
+        form = MessageSearchForm(self.request.GET)
+        if form.is_valid():
+            keyword = form.cleaned_data["keyword"]
+            if keyword:
+                queryset = queryset.filter(content__icontains=keyword)        
+        #↑ここまで
 
         return queryset
+
 
     def post(self, request, *args, **kwargs):
 
